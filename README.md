@@ -21,7 +21,7 @@ aws_secret_access_key = ###################T3og
 ```
 
 ```python
-python3 s3uploader.py  ido-ragavendran-ps20230302174514020500000001 ./myfile.txt
+python3 s3uploader.py  <bucket_name> <file_to_monitor>
 
 # if the file exists
 File myfile.txt already exists
