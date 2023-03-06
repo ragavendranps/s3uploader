@@ -18,7 +18,7 @@ def s3uploader(bucket_name, file_path):
     result = False
     flag = False
     while not flag:
-        # Check if the file has been modified
+        # Check if the file exists
         check_file = s3.list_objects_v2(Bucket=bucket_name, Prefix=file_name)
         if not result:
             if check_file.get('Contents'):
@@ -30,7 +30,8 @@ def s3uploader(bucket_name, file_path):
                     s3.upload_file(file_path, bucket_name, file_name)
                     print(f'File {file_name} was missing in s3 bucket {bucket_name}, now uploaded')
                     continue
-        else:
+        else:  
+            # Check if the file is modified
             if os.path.getmtime(file_path) > last_modified_time:
                 # Get the current contents of the file
                 current_contents = open(file_path, 'rb').read()
@@ -45,7 +46,7 @@ def s3uploader(bucket_name, file_path):
                 else:
                     print(f'{file_name} is not uploaded')
             # Wait for some time before checking again
-            time.sleep(30)
+            time.sleep(5)
 
 
 s3uploader(arg1, arg2)
